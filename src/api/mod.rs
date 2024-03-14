@@ -9,3 +9,5 @@ use httptest::{Server, Expectation, matchers::*, responders::*};
 
 mod instance;
 pub use instance::Instance;
+
+mod endpoint;

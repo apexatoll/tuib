@@ -4,7 +4,7 @@ mod fetcher;
 
 #[derive(Debug, Eq, PartialEq)]
 pub struct Instance {
-    url: Url,
+    pub url: Url,
 }
 
 impl From<&str> for Instance {

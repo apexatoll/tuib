@@ -1,7 +1,7 @@
 use super::*;
 
 #[derive(Deserialize, Debug, Eq, PartialEq)]
-struct SearchResult {
+pub struct SearchResult {
     title: String,
 
     #[serde(rename = "videoId")]

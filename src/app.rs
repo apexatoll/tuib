@@ -1,11 +1,13 @@
 use super::*;
-use crate::api::Instance;
+use crate::api::{Instance, SearchResult};
 use reqwest::Client;
 
 #[derive(Default)]
 pub struct App {
     client: Client,
     instance: Instance,
+    query: String,
+    results: Vec<SearchResult>,
 }
 
 impl App {
@@ -18,6 +20,7 @@ impl App {
         Ok(Self {
             instance,
             client,
+            ..Default::default()
         })
     }
 }

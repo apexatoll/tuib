@@ -1,5 +1,9 @@
 use super::*;
 
+pub async fn fetch(source: &str, client: &Client) -> Result<Instance> {
+    Fetcher::from(source).fetch(client).await
+}
+
 struct Fetcher {
     source: Url,
 }

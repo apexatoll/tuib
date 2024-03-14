@@ -14,3 +14,9 @@ impl From<&str> for Instance {
         Self { url }
     }
 }
+
+impl Instance {
+    pub async fn fetch(source: &str, client: &Client) -> Result<Self> {
+        fetcher::fetch(source, client).await
+    }
+}

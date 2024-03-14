@@ -30,6 +30,10 @@ impl Fetcher {
             .map(Instance::from)
             .collect())
     }
+
+    async fn fetch(&self, client: &Client) -> Result<Instance> {
+        Ok(self.fetch_all(client).await?.into_iter().next().unwrap())
+    }
 }
 
 #[derive(Deserialize)]
@@ -133,6 +137,63 @@ mod tests {
                 Instance::from("http://foo.io"),
                 Instance::from("http://baz.io"),
             ];
+
+            assert_eq!(actual, expected);
+        }
+    }
+
+    mod fetch {
+        use super::*;
+
+        #[tokio::test]
+        #[should_panic]
+        async fn when_no_valid_results_returned() {
+            let server = Server::run();
+            let client = Client::new();
+            let fetcher = Fetcher::from(&server);
+
+            let response = json!([
+                ["http://foo.io", { "api": false, "uri": "http://foo.io" }],
+                ["http://bar.io", { "api": false, "uri": "http://bar.io" }],
+                ["http://baz.io", { "api": null, "uri": "http://baz.io" }],
+                ["http://boo.io", { "api": null, "uri": "http://boo.io" }],
+                ["http://far.io", { "api": null, "uri": "http://far.io" }],
+                ["http://faz.io", { "api": false, "uri": "http://faz.io" }],
+            ]);
+
+            server.expect(
+                Expectation::matching(
+                    request::method_path("GET", "/instances.json")
+                ).respond_with(json_encoded(response))
+            );
+
+            fetcher.fetch(&client).await.unwrap();
+        }
+
+        #[tokio::test]
+        async fn when_valid_results_returned() {
+            let server = Server::run();
+            let client = Client::new();
+            let fetcher = Fetcher::from(&server);
+
+            let response = json!([
+                ["http://foo.io", { "api": false, "uri": "http://foo.io" }],
+                ["http://bar.io", { "api": false, "uri": "http://bar.io" }],
+                ["http://baz.io", { "api": true, "uri": "http://baz.io" }],
+                ["http://boo.io", { "api": null, "uri": "http://boo.io" }],
+                ["http://far.io", { "api": null, "uri": "http://far.io" }],
+                ["http://faz.io", { "api": false, "uri": "http://faz.io" }],
+            ]);
+
+            server.expect(
+                Expectation::matching(
+                    request::method_path("GET", "/instances.json")
+                ).respond_with(json_encoded(response))
+            );
+
+            let actual = fetcher.fetch(&client).await.unwrap();
+
+            let expected = Instance::from("http://baz.io");
 
             assert_eq!(actual, expected);
         }

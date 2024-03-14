@@ -20,6 +20,20 @@ impl Fetcher {
     }
 }
 
+#[derive(Deserialize)]
+struct FetcherResult {
+    api: Option<bool>,
+    uri: String,
+}
+
+impl From<FetcherResult> for Instance {
+    fn from(result: FetcherResult) -> Self {
+        let url = Url::parse(&result.uri).unwrap();
+
+        Self { url }
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

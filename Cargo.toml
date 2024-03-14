@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 httptest = "0.15.5"
+ratatui = "0.26.1"
 reqwest = { version = "0.11.26", features = ["json"] }
 serde = { version = "1.0.197", features = ["derive"] }
 serde_json = "1.0.114"

@@ -6,3 +6,4 @@ mod api;
 mod app;
 
 use app::App;
+use ratatui::{prelude::*, widgets::*};

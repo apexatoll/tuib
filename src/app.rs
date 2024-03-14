@@ -8,6 +8,7 @@ pub struct App {
     instance: Instance,
     query: String,
     results: Vec<SearchResult>,
+    cursor: ListState,
 }
 
 impl App {

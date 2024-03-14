@@ -1,4 +1,7 @@
 use super::*;
+use reqwest::Client;
 
 #[derive(Default)]
-pub struct App {}
+pub struct App {
+    client: Client,
+}

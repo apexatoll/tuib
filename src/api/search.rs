@@ -1,5 +1,13 @@
 use super::*;
 
+pub async fn submit(
+    query: &String,
+    instance: &Instance,
+    client: &Client
+) -> Result<Vec<SearchResult>> {
+    Search::new(query.to_owned()).fetch(instance, client).await
+}
+
 #[derive(Deserialize, Debug, Eq, PartialEq)]
 pub struct SearchResult {
     title: String,

@@ -15,6 +15,12 @@ impl From<&str> for Instance {
     }
 }
 
+impl Default for Instance {
+    fn default() -> Self {
+        Self::from("http://example.com")
+    }
+}
+
 impl Instance {
     pub async fn fetch(source: &str, client: &Client) -> Result<Self> {
         fetcher::fetch(source, client).await

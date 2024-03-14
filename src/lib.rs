@@ -6,4 +6,5 @@ mod api;
 mod app;
 
 use app::App;
+use crossterm::event::{self, *};
 use ratatui::{prelude::*, widgets::*};

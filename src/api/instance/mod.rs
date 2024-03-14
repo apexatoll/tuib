@@ -2,6 +2,7 @@ use super::*;
 
 mod fetcher;
 
+#[derive(Debug, Eq, PartialEq)]
 pub struct Instance {
     url: Url,
 }

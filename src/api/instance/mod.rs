@@ -15,6 +15,15 @@ impl From<&str> for Instance {
     }
 }
 
+#[cfg(test)]
+impl From<&Server> for Instance {
+    fn from(server: &Server) -> Self {
+        let url = Url::parse(&server.url_str("/")).unwrap();
+
+        Self { url }
+    }
+}
+
 impl Default for Instance {
     fn default() -> Self {
         Self::from("http://example.com")

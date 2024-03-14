@@ -11,3 +11,6 @@ mod instance;
 pub use instance::Instance;
 
 mod endpoint;
+use endpoint::Endpoint;
+
+mod search;

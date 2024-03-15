@@ -2,6 +2,7 @@ use super::*;
 use api::SearchResult;
 
 mod renderer;
+mod router;
 
 pub struct Browser;
 

@@ -6,6 +6,8 @@ use routers::Router;
 mod handlers;
 use handlers::StatefulHandler;
 
+mod search_bar;
+
 mod test_helpers {
     macro_rules! assert_buffer {
         ($component:expr, $buffer:expr, $state:expr) => {

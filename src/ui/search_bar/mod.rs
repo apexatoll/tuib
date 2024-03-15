@@ -1,6 +1,7 @@
 use super::*;
 
 mod renderer;
+mod router;
 
 pub struct SearchBar;
 

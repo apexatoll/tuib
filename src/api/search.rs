@@ -10,10 +10,10 @@ pub async fn submit(
 
 #[derive(Deserialize, Debug, Eq, PartialEq)]
 pub struct SearchResult {
-    title: String,
+    pub title: String,
 
     #[serde(rename = "videoId")]
-    video_id: String,
+    pub video_id: String,
 }
 
 struct Search {

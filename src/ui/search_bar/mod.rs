@@ -2,6 +2,7 @@ use super::*;
 
 mod renderer;
 mod router;
+mod handler;
 
 pub struct SearchBar;
 

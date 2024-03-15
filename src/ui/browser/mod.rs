@@ -3,6 +3,7 @@ use api::SearchResult;
 
 mod renderer;
 mod router;
+mod handler;
 
 pub struct Browser;
 

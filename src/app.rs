@@ -6,9 +6,16 @@ use reqwest::Client;
 pub struct App {
     client: Client,
     instance: Instance,
+    mode: Mode,
     query: String,
     results: Vec<SearchResult>,
     cursor: ListState,
+}
+
+#[derive(Default)]
+pub enum Mode {
+    #[default] Search,
+    Browse,
 }
 
 impl App {

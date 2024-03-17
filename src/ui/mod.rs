@@ -7,8 +7,10 @@ mod handlers;
 use handlers::StatefulHandler;
 
 mod search_bar;
+use search_bar::SearchBar;
 
 mod browser;
+use browser::Browser;
 
 mod interface;
 

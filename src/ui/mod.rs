@@ -11,6 +11,9 @@ mod search_bar;
 mod browser;
 
 mod test_helpers {
+    pub use serde_json::json;
+    pub use httptest::{Server, Expectation, matchers::*, responders::*};
+
     macro_rules! assert_buffer {
         ($component:expr, $buffer:expr, $state:expr) => {
             let backend = ratatui::backend::TestBackend::new(

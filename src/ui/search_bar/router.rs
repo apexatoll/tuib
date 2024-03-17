@@ -5,6 +5,7 @@ impl Router<Message> for SearchBar {
         match event.code {
             KeyCode::Char(char) => Message::Append(char),
             KeyCode::Backspace => Message::Delete,
+            KeyCode::Enter => Message::Submit,
             _ => Message::None,
         }
     }

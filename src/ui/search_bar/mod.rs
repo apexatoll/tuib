@@ -9,5 +9,6 @@ pub struct SearchBar;
 pub enum Message {
     Append(char),
     Delete,
+    Submit,
     None,
 }

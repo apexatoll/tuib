@@ -5,6 +5,7 @@ impl StatefulHandler<Message> for SearchBar {
         match message {
             Message::Append(char) => self.append(app, char),
             Message::Delete => self.delete(app),
+            Message::Submit => self.submit(app).await,
             Message::None => Ok(()),
         }
     }
@@ -22,12 +23,27 @@ impl SearchBar {
 
         Ok(())
     }
+
+    async fn submit(&self, app: &mut App) -> Result<()> {
+        app.results = api::search(
+            &app.query,
+            &app.instance,
+            &app.client
+        ).await?;
+
+        app.mode = app::Mode::Browse;
+
+        app.cursor.select(Some(0));
+
+        Ok(())
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
     use ui::test_helpers::*;
+    use api::SearchResult;
 
     macro_rules! assert_query {
         ($messages:expr, $from:expr, $to: expr) => {
@@ -63,5 +79,46 @@ mod tests {
 
         let messages: Vec<_> = "67890".chars().map(Message::Append).collect();
         assert_query!(messages, "", "67890");
+    }
+
+    #[tokio::test]
+    async fn it_submits_the_search_and_sets_results() {
+        let server = httptest::Server::run();
+        let instance = api::Instance::from(&server);
+        let query = String::from("search text");
+        let mut app = App { instance, query, ..Default::default() };
+
+        let response = json!([
+            { "title": "Foo", "videoId": "abc" },
+            { "title": "Bar", "videoId": "def" },
+            { "title": "Baz", "videoId": "123" },
+        ]);
+
+        let expected = vec![
+            SearchResult {
+                title: String::from("Foo"),
+                video_id: String::from("abc"),
+            },
+            SearchResult {
+                title: String::from("Bar"),
+                video_id: String::from("def"),
+            },
+            SearchResult {
+                title: String::from("Baz"),
+                video_id: String::from("123"),
+            },
+        ];
+
+        stub_search!(server, app.query, response);
+
+        assert!(app.results.is_empty());
+        assert!(matches!(app.mode, app::Mode::Search));
+        assert!(app.cursor.selected().is_none());
+
+        SearchBar.handle(Message::Submit, &mut app).await.unwrap();
+
+        assert_eq!(app.results, expected);
+        assert!(matches!(app.mode, app::Mode::Browse));
+        assert_eq!(app.cursor.selected().unwrap(), 0);
     }
 }

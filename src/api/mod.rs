@@ -14,4 +14,4 @@ mod endpoint;
 use endpoint::Endpoint;
 
 mod search;
-pub use search::SearchResult;
+pub use search::{SearchResult, submit as search};

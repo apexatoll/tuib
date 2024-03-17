@@ -10,6 +10,8 @@ mod search_bar;
 
 mod browser;
 
+mod interface;
+
 mod test_helpers {
     pub use serde_json::json;
     pub use httptest::{Server, Expectation, matchers::*, responders::*};

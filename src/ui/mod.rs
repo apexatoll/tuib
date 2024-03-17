@@ -36,6 +36,20 @@ mod test_helpers {
         }
     }
 
+    macro_rules! stub_search {
+        ($server:expr, $query:expr, $response:expr) => {
+            $server.expect(
+                Expectation::matching(
+                    all_of![
+                        request::method_path("GET", "/api/v1/search"),
+                        request::query(url_decoded(contains(("q", $query.clone())))),
+                    ]
+                ).respond_with(json_encoded($response))
+            );
+        }
+    }
+
     pub(super) use assert_buffer;
     pub(super) use handle_messages;
+    pub(super) use stub_search;
 }

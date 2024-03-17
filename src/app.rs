@@ -4,12 +4,12 @@ use reqwest::Client;
 
 #[derive(Default)]
 pub struct App {
-    client: Client,
-    instance: Instance,
-    mode: Mode,
-    query: String,
-    results: Vec<SearchResult>,
-    cursor: ListState,
+    pub client: Client,
+    pub instance: Instance,
+    pub mode: Mode,
+    pub query: String,
+    pub results: Vec<SearchResult>,
+    pub cursor: ListState,
 }
 
 #[derive(Default)]

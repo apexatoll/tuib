@@ -5,7 +5,7 @@ impl StatefulHandler<Message> for Browser {
         match message {
             Message::Up => self.prev(app),
             Message::Down => self.next(app),
-            Message::Select => todo!(),
+            Message::Select => Self::select(app).await,
             Message::None => (),
         }
 
@@ -36,6 +36,17 @@ impl Browser {
         } else {
             app.cursor.select(Some(0))
         }
+    }
+
+    async fn select(app: &mut App) {
+        let video_id = &app.current_item().unwrap().video_id;
+        let url = format!("https://youtube.com/watch?v={video_id}");
+
+        tokio::process::Command::new("mpv")
+            .arg(url)
+            .arg("--quiet")
+            .spawn()
+            .unwrap();
     }
 }
 

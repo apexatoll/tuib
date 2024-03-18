@@ -49,4 +49,12 @@ impl App {
 
         Ok(())
     }
+
+    pub fn current_item(&self) -> Option<&SearchResult> {
+        if let Some(index) = self.cursor.selected() {
+            self.results.get(index)
+        } else {
+            None
+        }
+    }
 }

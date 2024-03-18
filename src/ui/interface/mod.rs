@@ -3,6 +3,7 @@ use app::{App, Mode};
 
 mod renderer;
 mod router;
+mod handler;
 
 pub struct Interface;
 

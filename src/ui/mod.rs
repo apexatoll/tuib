@@ -43,6 +43,14 @@ mod test_helpers {
         }
     }
 
+    macro_rules! handle_events {
+        ($component:expr, $events:expr, $state:expr) => {
+            for event in $events.into_iter() {
+                $component.handle_event(event, $state).await.unwrap();
+            }
+        }
+    }
+
     macro_rules! stub_search {
         ($server:expr, $query:expr, $response:expr) => {
             $server.expect(
@@ -58,5 +66,6 @@ mod test_helpers {
 
     pub(super) use assert_buffer;
     pub(super) use handle_messages;
+    pub(super) use handle_events;
     pub(super) use stub_search;
 }

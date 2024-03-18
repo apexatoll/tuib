@@ -4,7 +4,7 @@ mod routers;
 use routers::Router;
 
 mod handlers;
-use handlers::StatefulHandler;
+pub use handlers::StatefulHandler;
 
 mod search_bar;
 use search_bar::SearchBar;
@@ -13,6 +13,7 @@ mod browser;
 use browser::Browser;
 
 mod interface;
+pub use interface::Interface;
 
 mod test_helpers {
     pub use serde_json::json;

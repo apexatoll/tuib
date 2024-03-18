@@ -10,6 +10,7 @@ pub struct App {
     pub query: String,
     pub results: Vec<SearchResult>,
     pub cursor: ListState,
+    pub is_running: bool,
 }
 
 #[derive(Default)]

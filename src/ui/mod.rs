@@ -12,6 +12,8 @@ use search_bar::SearchBar;
 mod browser;
 use browser::Browser;
 
+mod info;
+
 mod interface;
 pub use interface::Interface;
 

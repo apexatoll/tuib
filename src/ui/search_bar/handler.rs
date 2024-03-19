@@ -89,22 +89,63 @@ mod tests {
         let mut app = App { instance, query, ..Default::default() };
 
         let response = json!([
-            { "title": "Foo", "videoId": "abc" },
-            { "title": "Bar", "videoId": "def" },
-            { "title": "Baz", "videoId": "123" },
+            {
+                "title": "Video one",
+                "description": "Lorem ipsum",
+                "author": "foo",
+                "publishedText": "1 month ago",
+                "lengthSeconds": 123,
+                "viewCount": 20,
+                "videoId": "abc",
+            },
+            {
+                "title": "Video two",
+                "description": "Dolor est",
+                "author": "bar",
+                "publishedText": "4 months ago",
+                "lengthSeconds": 123,
+                "viewCount": 200,
+                "videoId": "def",
+            },
+            {
+                "title": "Video three",
+                "description": "Quia amet",
+                "author": "baz",
+                "publishedText": "2 months ago",
+                "lengthSeconds": 123,
+                "viewCount": 2000,
+                "videoId": "123",
+            },
         ]);
 
         let expected = vec![
             SearchResult {
-                title: String::from("Foo"),
+                title: String::from("Video one"),
+                description: String::from("Lorem ipsum"),
+                author: String::from("foo"),
+                published: String::from("1 month ago"),
+                length: 123,
+                views: 20,
                 video_id: String::from("abc"),
             },
+
             SearchResult {
-                title: String::from("Bar"),
+                title: String::from("Video two"),
+                description: String::from("Dolor est"),
+                author: String::from("bar"),
+                published: String::from("4 months ago"),
+                length: 123,
+                views: 200,
                 video_id: String::from("def"),
             },
+
             SearchResult {
-                title: String::from("Baz"),
+                title: String::from("Video three"),
+                description: String::from("Quia amet"),
+                author: String::from("baz"),
+                published: String::from("2 months ago"),
+                length: 123,
+                views: 2000,
                 video_id: String::from("123"),
             },
         ];

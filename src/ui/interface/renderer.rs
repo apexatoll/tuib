@@ -45,15 +45,15 @@ mod tests {
         let results = vec![
             SearchResult {
                 title: String::from("Learn Rust quick"),
-                video_id: String::from("abc"),
+                ..Default::default()
             },
             SearchResult {
                 title: String::from("Learn Rust quicker"),
-                video_id: String::from("def"),
+                ..Default::default()
             },
             SearchResult {
                 title: String::from("Learn Rust quickest"),
-                video_id: String::from("123"),
+                ..Default::default()
             },
         ];
 

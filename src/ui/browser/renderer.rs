@@ -79,15 +79,15 @@ mod tests {
         let results = vec![
             SearchResult {
                 title: String::from("1: Option one"),
-                video_id: String::from("abc"),
+                ..Default::default()
             },
             SearchResult {
                 title: String::from("2: Option two"),
-                video_id: String::from("def"),
+                ..Default::default()
             },
             SearchResult {
                 title: String::from("3: Option three"),
-                video_id: String::from("123"),
+                ..Default::default()
             },
         ];
 

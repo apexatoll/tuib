@@ -41,18 +41,9 @@ mod tests {
 
     fn build_results() -> Vec<SearchResult> {
         vec![
-            SearchResult {
-                title: String::from("Foo"),
-                video_id: String::from("abc"),
-            },
-            SearchResult {
-                title: String::from("Bar"),
-                video_id: String::from("def"),
-            },
-            SearchResult {
-                title: String::from("Baz"),
-                video_id: String::from("123"),
-            },
+            SearchResult::default(),
+            SearchResult::default(),
+            SearchResult::default(),
         ]
     }
 

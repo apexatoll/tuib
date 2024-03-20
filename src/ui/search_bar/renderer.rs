@@ -12,8 +12,6 @@ impl StatefulWidget for &SearchBar {
 }
 
 impl SearchBar {
-    const MARGIN: usize = 3;
-
     fn render_block(&self, area: Rect, buf: &mut Buffer) {
         Block::new()
             .borders(Borders::ALL)

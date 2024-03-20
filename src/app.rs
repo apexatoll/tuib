@@ -38,9 +38,14 @@ impl App {
         self.is_running = true;
 
         while self.is_running {
-            terminal.draw(|frame|
-                frame.render_stateful_widget(&ui::Interface, frame.size(), self)
-            )?;
+            terminal.draw(|frame| {
+                frame.render_stateful_widget(&ui::Interface, frame.size(), self);
+
+                if let Some((x, y)) = self.cursor_position(frame) {
+                    frame.set_cursor(x, y);
+                }
+            })?;
+
 
             if let Event::Key(event) = event::read()? {
                Interface.handle_event(event, self).await;
@@ -55,6 +60,13 @@ impl App {
             self.results.get(index)
         } else {
             None
+        }
+    }
+
+    pub fn cursor_position(&self, frame: &Frame) -> Option<(u16, u16)> {
+        match self.mode {
+            Mode::Search => Some(ui::SearchBar.cursor_position(self, frame)),
+            _ => None
         }
     }
 }

@@ -7,7 +7,7 @@ mod handlers;
 pub use handlers::StatefulHandler;
 
 mod search_bar;
-use search_bar::SearchBar;
+pub use search_bar::SearchBar;
 
 mod browser;
 use browser::Browser;

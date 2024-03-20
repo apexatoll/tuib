@@ -22,14 +22,14 @@ impl SearchBar {
     }
 
     fn render_query(&self, area: Rect, buf: &mut Buffer, app: &mut App) {
-        let width = area.width as usize - Self::MARGIN;
+        let width = area.width - Self::MARGIN;
 
         let scroll =
-            if app.query.len() > width {
-                app.query.len() - width
+            if app.query.len() as u16 > width {
+                app.query.len() as u16 - width
             } else {
                 0
-            } as u16;
+            };
 
         Paragraph::new(app.query.to_owned())
             .scroll((0, scroll))

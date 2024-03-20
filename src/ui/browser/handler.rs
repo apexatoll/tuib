@@ -1,4 +1,5 @@
 use super::*;
+use app::Mode;
 
 impl StatefulHandler<Message> for Browser {
     async fn handle(&self, message: Message, app: &mut App) -> Result<()> {
@@ -6,6 +7,7 @@ impl StatefulHandler<Message> for Browser {
             Message::Up => self.prev(app),
             Message::Down => self.next(app),
             Message::Select => self.select(app).await,
+            Message::BackToSearch => self.back_to_search(app),
             Message::None => (),
         }
 
@@ -47,6 +49,10 @@ impl Browser {
             .arg("--quiet")
             .spawn()
             .unwrap();
+    }
+
+    fn back_to_search(&self, app: &mut App) {
+        app.mode = Mode::Search;
     }
 }
 
@@ -158,6 +164,21 @@ mod tests {
                     assert_changes_cursor!(Message::Down, Some(2), Some(0));
                 }
             }
+        }
+    }
+
+    mod back_to_search {
+        use super::*;
+
+        #[tokio::test]
+        async fn it_sets_the_app_mode_to_search() {
+            let mut app = App { mode: Mode::Browse, ..Default::default() };
+
+            assert!(matches!(app.mode, Mode::Browse));
+
+            Browser.handle(Message::BackToSearch, &mut app).await.unwrap();
+
+            assert!(matches!(app.mode, Mode::Search));
         }
     }
 }

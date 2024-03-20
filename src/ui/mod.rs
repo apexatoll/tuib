@@ -13,6 +13,7 @@ mod browser;
 use browser::Browser;
 
 mod info;
+use info::Info;
 
 mod interface;
 pub use interface::Interface;

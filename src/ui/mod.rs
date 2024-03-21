@@ -32,6 +32,29 @@ mod test_helpers {
     pub use httptest::{Server, Expectation, matchers::*, responders::*};
 
     macro_rules! assert_buffer {
+        ($component:expr, $buffer:expr) => {
+            let backend = ratatui::backend::TestBackend::new(
+                $buffer.area.width,
+                $buffer.area.height,
+            );
+
+            let mut terminal = Terminal::new(backend).unwrap();
+
+            terminal.draw(|frame| {
+                let size = frame.size();
+
+                let reset = Style::new()
+                    .fg(Color::Reset)
+                    .bg(Color::Reset)
+                    .remove_modifier(Modifier::BOLD);
+
+                frame.render_widget($component, size);
+                frame.buffer_mut().set_style(size, reset);
+            }).unwrap();
+
+            terminal.backend().assert_buffer($buffer);
+        };
+
         ($component:expr, $buffer:expr, $state:expr) => {
             let backend = ratatui::backend::TestBackend::new(
                 $buffer.area.width,
@@ -52,9 +75,8 @@ mod test_helpers {
                 frame.buffer_mut().set_style(size, reset);
             }).unwrap();
 
-
             terminal.backend().assert_buffer($buffer);
-        }
+        };
     }
 
     macro_rules! handle_messages {

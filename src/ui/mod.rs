@@ -33,7 +33,11 @@ mod test_helpers {
 
             terminal.draw(|frame| {
                 let size = frame.size();
-                let reset = Style::new().fg(Color::Reset).bg(Color::Reset);
+
+                let reset = Style::new()
+                    .fg(Color::Reset)
+                    .bg(Color::Reset)
+                    .remove_modifier(Modifier::BOLD);
 
                 frame.render_stateful_widget($component, size, $state);
                 frame.buffer_mut().set_style(size, reset);

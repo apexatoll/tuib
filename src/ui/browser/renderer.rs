@@ -18,18 +18,12 @@ impl Browser {
         let rows = self.rows(results);
 
         List::new(rows)
-            .block(self.block())
+            .block(ui::block("Results"))
             .highlight_style(self.highlight_style())
     }
 
     fn rows(&self, results: &[SearchResult]) -> Vec<String> {
         results.iter().map(|result| result.title.to_owned()).collect()
-    }
-
-    fn block(&self) -> Block {
-        Block::new()
-            .borders(Borders::ALL)
-            .title("Results")
     }
 
     fn highlight_style(&self) -> Style {

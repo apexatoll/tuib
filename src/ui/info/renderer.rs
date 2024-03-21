@@ -4,7 +4,7 @@ impl StatefulWidget for &Info {
     type State = App;
 
     fn render(self, area: Rect, buf: &mut Buffer, app: &mut App) {
-        let block = Block::new().borders(Borders::ALL).title("Info");
+        let block = ui::block("Info");
 
         if let Some(result) = app.current_item() {
             let widths = [Constraint::Fill(1)];

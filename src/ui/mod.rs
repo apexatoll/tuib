@@ -18,6 +18,12 @@ use info::Info;
 mod interface;
 pub use interface::Interface;
 
+fn block(title: &str) -> Block {
+    Block::new()
+        .borders(Borders::ALL)
+        .title(title)
+}
+
 mod test_helpers {
     pub use serde_json::json;
     pub use httptest::{Server, Expectation, matchers::*, responders::*};

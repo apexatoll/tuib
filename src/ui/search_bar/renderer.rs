@@ -13,10 +13,7 @@ impl StatefulWidget for &SearchBar {
 
 impl SearchBar {
     fn render_block(&self, area: Rect, buf: &mut Buffer) {
-        Block::new()
-            .borders(Borders::ALL)
-            .title("Search")
-            .render(area, buf);
+        ui::block("Search").render(area, buf);
     }
 
     fn render_query(&self, area: Rect, buf: &mut Buffer, app: &mut App) {

@@ -4,12 +4,14 @@ impl StatefulWidget for &Interface {
     type State = App;
 
     fn render(self, area: Rect, buf: &mut Buffer, app: &mut App) {
-        let [search_area, info_area, browse_area] = Layout::vertical([
+        let [header_area, search_area, info_area, browse_area] = Layout::vertical([
+            Constraint::Length(5),
             Constraint::Length(3),
             Constraint::Length(7),
             Constraint::Fill(1),
         ]).areas(area);
 
+        Header.render(header_area, buf);
         SearchBar.render(search_area, buf, app);
         Info.render(info_area, buf, app);
         Browser.render(browse_area, buf, app);
@@ -27,6 +29,11 @@ mod tests {
         let mut app = App::default();
 
         let expected = Buffer::with_lines(vec![
+            "  _        _ _      ",
+            " | |_ _  _(_| |__   ",
+            " |  _| || | | '_ \\  ",
+            "  \\__|\\_,_|_|_.__/  ",
+            "                    ",
             "┌Search────────────┐",
             "│                  │",
             "└──────────────────┘",
@@ -76,6 +83,11 @@ mod tests {
         app.cursor.select(Some(0));
 
         let mut expected = Buffer::with_lines(vec![
+            "  _        _ _      ",
+            " | |_ _  _(_| |__   ",
+            " |  _| || | | '_ \\  ",
+            "  \\__|\\_,_|_|_.__/  ",
+            "                    ",
             "┌Search────────────┐",
             "│learn rust        │",
             "└──────────────────┘",
@@ -94,7 +106,7 @@ mod tests {
         ]);
 
         expected.set_style(
-            Rect::new(1, 11, expected.area.width - 2, 1),
+            Rect::new(1, 16, expected.area.width - 2, 1),
             Style::new().add_modifier(Modifier::REVERSED),
         );
 

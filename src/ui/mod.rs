@@ -7,6 +7,7 @@ mod handlers;
 pub use handlers::StatefulHandler;
 
 mod header;
+use header::Header;
 
 mod search_bar;
 pub use search_bar::SearchBar;

@@ -8,7 +8,7 @@ pub struct SearchBar;
 
 impl SearchBar {
     const MARGIN: u16 = 3;
-    const INPUT_LINE: u16 = 1;
+    const INPUT_LINE: u16 = 6;
 
     pub fn cursor_position(&self, app: &App, frame: &Frame) -> (u16, u16) {
         let column = 

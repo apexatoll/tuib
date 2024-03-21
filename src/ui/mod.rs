@@ -22,6 +22,7 @@ fn block(title: &str) -> Block {
     Block::new()
         .borders(Borders::ALL)
         .title(title)
+        .title_style(Style::new().fg(Color::Yellow).bold())
 }
 
 mod test_helpers {

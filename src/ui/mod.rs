@@ -31,9 +31,14 @@ mod test_helpers {
 
             let mut terminal = Terminal::new(backend).unwrap();
 
-            terminal.draw(|frame|
-                frame.render_stateful_widget($component, frame.size(), $state)
-            ).unwrap();
+            terminal.draw(|frame| {
+                let size = frame.size();
+                let reset = Style::new().fg(Color::Reset).bg(Color::Reset);
+
+                frame.render_stateful_widget($component, size, $state);
+                frame.buffer_mut().set_style(size, reset);
+            }).unwrap();
+
 
             terminal.backend().assert_buffer($buffer);
         }

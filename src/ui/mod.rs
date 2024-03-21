@@ -6,6 +6,8 @@ use routers::Router;
 mod handlers;
 pub use handlers::StatefulHandler;
 
+mod header;
+
 mod search_bar;
 pub use search_bar::SearchBar;
 
